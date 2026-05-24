@@ -34,10 +34,14 @@ export default function Home() {
             CodeShield AI is a demo GitHub App that scans pull requests for leaked credentials and common vulnerability patterns, then comments directly on the PR.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="https://github.com/apps/codeshield-ai-demo/installations/new">
-              Install GitHub App
-            </a>
-            <a href={feedbackUrl} className="rounded-2xl border border-slate-700 px-6 py-3 text-center font-semibold text-slate-200 hover:bg-slate-800">
+            <a
+  href="https://github.com/apps/codeshield-ai-demo/installations/new"
+  target="_blank"
+  rel="noreferrer"
+  className="inline-flex items-center justify-center rounded-2xl bg-emerald-400 px-6 py-4 text-sm font-bold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-300"
+>
+  Install GitHub App
+</a>            <a href={feedbackUrl} className="rounded-2xl border border-slate-700 px-6 py-3 text-center font-semibold text-slate-200 hover:bg-slate-800">
               Share feedback
             </a>
           </div>
