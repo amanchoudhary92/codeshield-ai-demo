@@ -1,133 +1,98 @@
-# CodeShield AI Demo
+# CodeShield AI
 
-Free GitHub PR Security Bot: catch secrets and common security bugs before merge.
+**CodeShield AI** is a free GitHub PR security bot that scans pull requests for leaked secrets, hardcoded credentials, and common vulnerability patterns before code gets merged.
 
-This is a working demo project for validation. It is not yet a full SaaS.
+It is currently a working demo built to validate whether developers find PR-level security comments useful.
 
-## What it does
+---
 
-When a pull request is opened, updated, or reopened, CodeShield AI:
+## Live Demo
 
-1. Receives a GitHub App webhook
-2. Fetches changed files from the PR
-3. Scans only added lines in the PR diff
-4. Detects leaked secrets and basic vulnerability patterns
-5. Posts or updates a GitHub PR comment
-6. Adds a feedback link
+Frontend:
 
-## Features in this demo
+https://codeshield-ai-demo.vercel.app
 
-- GitHub App webhook receiver
-- GitHub installation token auth
-- PR changed files fetch
-- Built-in secret scanner
-- Built-in vulnerability scanner
-- PR comment formatter
-- Duplicate comment prevention by updating existing CodeShield AI comment
-- Landing page
-- Dockerfile for backend
-- Stage-by-stage setup guide
+GitHub Repository:
 
-## What is intentionally not included yet
+https://github.com/amanchoudhary92/codeshield-ai-demo
 
-- Billing
-- Dashboard
-- AI explanations
-- Team management
-- Slack alerts
-- Merge blocking
-- Full Semgrep/Gitleaks integration
-- Database persistence
+---
 
-These should be added only after demo validation.
+## What It Does
 
-## Project structure
+CodeShield AI automatically scans pull request diffs and comments security findings directly on the PR.
 
-```text
-codeshield-ai-demo/
-  backend/          GitHub App backend bot
-  frontend/         Next.js landing page
-  docs/             Step-by-step setup guide
-  docker-compose.yml
-```
+Current demo checks for:
 
-## Quick local start
+- Leaked API keys and secrets
+- Hardcoded credentials
+- Database URLs
+- Possible SQL injection
+- Unsafe `eval()` usage
+- Common JavaScript / TypeScript / Python security risks
+
+---
+
+## How It Works
+
+1. Install the CodeShield AI GitHub App.
+2. Select a repository.
+3. Open or update a pull request.
+4. CodeShield AI scans the changed files.
+5. The bot comments security findings directly on the PR.
+6. When new commits are pushed, the bot updates the existing comment.
+
+---
+
+## Demo Status
+
+This project is currently an early demo.
+
+It is not a replacement for a full security review. It may produce false positives or miss vulnerabilities.
+
+The goal of this demo is to test whether developers and teams find automated PR security comments useful.
+
+---
+
+## Tech Stack
 
 ### Backend
 
-```bash
-cd backend
-cp .env.example .env
-npm install
-npm run test:scanner
-npm run dev
-```
-
-Backend health check:
-
-```text
-http://localhost:4000/health
-```
+- Node.js
+- GitHub App API
+- Webhook signature verification
+- Pull request diff scanning
+- Custom secret scanner
+- Custom vulnerability scanner
+- Render deployment
 
 ### Frontend
 
-```bash
-cd frontend
-cp .env.example .env.local
-npm install
-npm run dev
-```
+- Next.js
+- Tailwind CSS
+- Vercel deployment
 
-Open:
+---
 
-```text
-http://localhost:3000
-```
-
-## GitHub App setup
-
-Read the full guide:
+## Project Structure
 
 ```text
-docs/STAGE_BY_STAGE_GUIDE.md
-```
+codeshield-ai-demo/
+  backend/
+    src/
+      github/
+      scanners/
+      utils/
+      server.js
+    package.json
 
-Minimum GitHub App permissions:
+  frontend/
+    app/
+    package.json
 
-```text
-Repository contents: Read-only
-Pull requests: Read and write
-Metadata: Read-only
-Checks: Read and write
-```
+  docs/
+    STAGE_BY_STAGE_GUIDE.md
+    TEST_CASES.md
 
-Webhook event:
-
-```text
-Pull request
-```
-
-Webhook URL:
-
-```text
-https://your-backend-url/webhooks/github
-```
-
-## Important security notes
-
-- The demo scans PR diffs only, not full repositories.
-- Secret-looking snippets are redacted in GitHub comments.
-- The in-memory scan log is for demo only.
-- Do not use this as your only security review.
-- Before production SaaS, add persistent DB, job queue, stronger scanners, rate limits, and security review.
-
-## Recommended validation target
-
-Before building SaaS features, aim for:
-
-- 50+ GitHub App installs
-- 100+ repos connected
-- 500+ PR scans
-- 20+ repeat users
-- 5+ teams asking for dashboard/private repo features
-- 3+ users asking for paid plan
+  README.md
+  docker-compose.yml
